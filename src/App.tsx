@@ -3,13 +3,13 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { db, auth } from './firebaseConfig'
-import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from 'firebase/auth'
-import { collection, addDoc, getDocs } from 'firebase/firestore'
+import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, User } from 'firebase/auth'
+import { collection, addDoc, getDocs, DocumentData } from 'firebase/firestore'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [user, setUser] = useState(null)
-  const [messages, setMessages] = useState([])
+  const [user, setUser] = useState<User|null>(null)
+  const [messages, setMessages] = useState<DocumentData[]>([])
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -62,10 +62,10 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank">
+        <a href="https://vite.dev" target="_blank" rel="noopener noreferrer">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
-        <a href="https://react.dev" target="_blank">
+        <a href="https://react.dev" target="_blank" rel="noopener noreferrer">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
